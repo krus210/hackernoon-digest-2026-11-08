@@ -1,0 +1,686 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HackerNoon · AI · 08.11.2026</title><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>  :root{
+    --bg:#080810; --bg2:#0d0d18; --panel:#12121f; --panel2:#171727; --line:#262638;
+    --ink:#ececf5; --muted:#9a9ab0; --faint:#6b6b82;
+    --purple:#a78bfa; --purple-deep:#7c5cff; --green:#4ade80; --red:#fb7185;
+    --amber:#fbbf24; --blue:#60a5fa; --cyan:#22d3ee;
+    --radius:18px; --maxw:1120px;
+    --gutter:22px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;z-index:-2;
+    background:
+      radial-gradient(900px 500px at 78% -8%, rgba(124,92,255,.20), transparent 60%),
+      radial-gradient(800px 600px at 0% 18%, rgba(34,211,238,.07), transparent 55%),
+      radial-gradient(700px 600px at 100% 90%, rgba(167,139,250,.08), transparent 60%)}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;line-height:1.12;letter-spacing:-.02em;font-weight:700;margin:0}
+  ::selection{background:rgba(124,92,255,.35)}
+
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:120;
+    background:linear-gradient(90deg,var(--purple-deep),var(--cyan));box-shadow:0 0 14px rgba(124,92,255,.7)}
+
+  nav{position:sticky;top:0;z-index:90;backdrop-filter:blur(14px);
+    background:rgba(8,8,16,.72);border-bottom:1px solid var(--line)}
+  .nav-in{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;gap:18px;padding:11px var(--gutter)}
+  .brand{font-family:'Space Grotesk';font-weight:700;font-size:15px;white-space:nowrap;display:flex;gap:9px;align-items:center}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--purple);box-shadow:0 0 12px var(--purple)}
+  .nav-links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin-left:auto;min-width:0;-webkit-overflow-scrolling:touch}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{font-size:12.5px;color:var(--muted);padding:6px 11px;border-radius:9px;white-space:nowrap;transition:.18s;font-weight:500}
+  .nav-links a:hover{color:var(--ink);background:var(--panel2)}
+  .nav-links a.active{color:#fff;background:linear-gradient(135deg,var(--purple-deep),#5b3fd6)}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+  section{padding-top:76px;padding-bottom:52px;scroll-margin-top:70px;border-top:1px solid rgba(255,255,255,.06)}
+
+  /* ---------- HERO ---------- */
+  .hero{padding-top:54px;padding-bottom:40px}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono';font-size:12px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--purple);
+    border:1px solid rgba(167,139,250,.3);padding:6px 13px;border-radius:999px;background:rgba(124,92,255,.08)}
+  .hero h1{font-size:clamp(34px,6vw,60px);margin:22px 0 8px;background:linear-gradient(180deg,#fff 30%,#b9b4e8);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .sub{font-size:clamp(16px,2.3vw,21px);color:var(--muted);max-width:780px;font-weight:500}
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin:26px 0 4px}
+  .chip{font-family:'JetBrains Mono';font-size:12.5px;color:var(--ink);background:var(--panel);
+    border:1px solid var(--line);padding:7px 13px;border-radius:10px;display:flex;gap:7px;align-items:center}
+  .chip b{color:var(--purple);font-weight:700}
+
+  /* "О чём пишут" — featured lead card */
+  .talk{background:linear-gradient(160deg,var(--panel),#0e0e1a);border:1px solid var(--line);
+    border-left:3px solid var(--purple);border-radius:var(--radius);padding:26px 28px;position:relative;overflow:hidden;margin-top:24px}
+  .talk::before{content:"\1F4DD";position:absolute;top:-6px;right:14px;font-size:90px;opacity:.06;line-height:1}
+  .talk .lab{font-family:'JetBrains Mono';font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
+  .talk p{font-size:17px;font-weight:500;margin:0;color:#f1f0fb}
+  .talk .accent{color:var(--purple);font-weight:700}
+
+  /* section heading */
+  .shead{display:flex;align-items:baseline;gap:14px;margin-bottom:26px;flex-wrap:wrap}
+  .shead .num{font-family:'JetBrains Mono';font-size:13px;color:var(--purple);border:1px solid rgba(167,139,250,.3);
+    border-radius:8px;padding:3px 9px;background:rgba(124,92,255,.07)}
+  .shead h2{font-size:clamp(23px,3.4vw,32px)}
+  .lead{color:var(--muted);font-size:16px;max-width:800px;margin:-8px 0 26px}
+
+  /* deep-link pill -> статья */
+  .src{font-family:'JetBrains Mono';font-size:12px;color:var(--cyan);border:1px solid rgba(34,211,238,.28);
+    background:rgba(34,211,238,.06);padding:3px 9px;border-radius:7px;white-space:nowrap;transition:.16s;display:inline-flex;gap:6px;align-items:center}
+  .src:hover{background:rgba(34,211,238,.18);color:#fff;border-color:var(--cyan)}
+  .src svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2}
+
+  /* ================= ГЛАВНЫЙ КОМПОНЕНТ: карточка статьи ================= */
+  .tricks{display:flex;flex-direction:column;gap:22px}
+  .trick{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px 26px;transition:.22s;position:relative;overflow:hidden}
+  .trick:hover{border-color:rgba(167,139,250,.4);box-shadow:0 14px 40px rgba(0,0,0,.4)}
+  .trick-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:8px}
+  .trick-head .tnum{font-family:'Space Grotesk';font-weight:700;font-size:22px;color:var(--purple-deep);
+    background:rgba(124,92,255,.12);border:1px solid rgba(124,92,255,.25);border-radius:10px;
+    min-width:42px;height:42px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .trick-head h3{font-size:21px;line-height:1.2;padding-top:6px}
+
+  /* автор + источник + время чтения + категории */
+  .who{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:2px 0 16px;padding-left:56px;font-size:13px}
+  @media(max-width:560px){.who{padding-left:0}}
+  .au{font-family:'JetBrains Mono';font-size:12.5px;color:var(--ink);background:rgba(124,92,255,.10);
+    border:1px solid rgba(124,92,255,.22);padding:3px 9px;border-radius:999px;transition:.16s}
+  .au:hover{background:rgba(124,92,255,.22);color:#fff}
+  .who .src-tag{font-family:'JetBrains Mono';font-size:11.5px;color:var(--green);background:rgba(74,222,128,.07);
+    border:1px solid rgba(74,222,128,.28);padding:3px 9px;border-radius:999px}
+  .who .rt{font-family:'JetBrains Mono';font-size:11.5px;color:var(--faint);border:1px solid var(--line);padding:3px 9px;border-radius:999px}
+  .who .cat{font-size:11.5px;color:var(--muted);background:var(--panel2);border:1px solid var(--line);padding:3px 9px;border-radius:999px}
+
+  /* О чём — короткий вводный абзац */
+  .about{border-left:3px solid rgba(124,92,255,.45);background:rgba(124,92,255,.04);
+    border-radius:0 12px 12px 0;padding:13px 17px;margin:4px 0 14px}
+  .about .lab{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);margin-bottom:6px}
+  .about p{margin:0;font-size:15px;color:#ececf5}
+
+  /* Главное — ключевые выводы */
+  .key{background:rgba(74,222,128,.04);border:1px solid rgba(74,222,128,.18);border-radius:13px;padding:14px 18px;margin-bottom:14px}
+  .key .lab{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:8px;display:flex;align-items:center;gap:7px}
+  .key ul{margin:0;padding-left:20px}
+  .key li{font-size:14.5px;color:var(--ink);margin:6px 0}
+  .key li::marker{color:var(--green)}
+
+  /* «Попробовать за вечер» */
+  .try{background:linear-gradient(150deg,rgba(124,92,255,.07),rgba(34,211,238,.04));
+    border:1px solid rgba(124,92,255,.20);border-radius:13px;padding:16px 18px;margin-bottom:16px}
+  .try-lab{font-family:'JetBrains Mono';font-size:12px;letter-spacing:.06em;color:var(--purple);
+    text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+  .try ul{margin:0;padding-left:20px}
+  .try li{font-size:14.5px;color:var(--ink);margin:6px 0}
+  .try li::marker{color:var(--purple)}
+  .try .measure{color:var(--faint);font-style:italic}
+  .k{font-family:'JetBrains Mono';font-size:.9em;color:var(--purple);background:rgba(124,92,255,.10);padding:1px 6px;border-radius:5px;border:1px solid rgba(124,92,255,.18)}
+
+  .links{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--faint);padding-top:4px}
+  .links .lk{font-size:14px;margin-right:2px}
+
+  /* ведущая картинка статьи (реальная) */
+  figure{margin:14px 0 0}
+  .shot{border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#0c0c16;cursor:zoom-in;position:relative;transition:.22s}
+  .shot:hover{border-color:var(--purple);box-shadow:0 0 0 1px var(--purple),0 12px 36px rgba(124,92,255,.25)}
+  .shot img{width:auto;max-width:100%;height:auto;display:block;margin-inline:auto}
+  .shot .badge{position:absolute;top:9px;left:9px;font-family:'JetBrains Mono';font-size:10.5px;color:#fff;
+    background:rgba(0,0,0,.62);backdrop-filter:blur(4px);padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.14)}
+  .shot .zoom{position:absolute;top:9px;right:9px;width:26px;height:26px;border-radius:6px;background:rgba(0,0,0,.55);
+    display:flex;align-items:center;justify-content:center;opacity:0;transition:.2s}
+  .shot:hover .zoom{opacity:1}
+  .shot .zoom svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2}
+  figcaption{font-size:13px;color:var(--faint);margin-top:9px;padding:0 2px}
+  figcaption b{color:var(--muted);font-weight:600}
+
+  /* свой SVG-диаграмма (по желанию) */
+  .canvas{background:radial-gradient(circle at 50% 0%,#0c0c16,#060609);border:1px solid var(--line);border-radius:14px;padding:10px;margin-top:14px}
+  .canvas svg{width:100%;height:auto;display:block;border-radius:12px}
+  .cap-hand{font-family:'Caveat';font-size:15px;color:var(--faint);text-align:center;padding:6px 0 4px}
+
+  /* «На что обратить внимание» */
+  .watch{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:780px){.watch{grid-template-columns:1fr}}
+  .watch-item{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:17px 19px;transition:.18s}
+  .watch-item:hover{border-color:rgba(167,139,250,.35)}
+  .watch-item h4{font-family:'Space Grotesk';font-size:16px;margin:0 0 7px;display:flex;gap:9px;align-items:baseline}
+  .watch-item h4 .em{font-size:18px}
+  .watch-item p{margin:0 0 10px;font-size:14px;color:var(--muted)}
+  .watch-item .who{padding-left:0;margin:0 0 8px}
+
+  /* «Мой план на неделю» — чек-лист */
+  .checks{display:grid;grid-template-columns:1fr;gap:12px}
+  .check{display:flex;gap:13px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);
+    border-radius:12px;padding:15px 17px;cursor:pointer;transition:.18s;user-select:none}
+  .check:hover{border-color:rgba(167,139,250,.4);background:var(--panel2)}
+  .check .box{width:22px;height:22px;border-radius:6px;border:2px solid var(--faint);flex:0 0 auto;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:.18s}
+  .check .box svg{width:13px;height:13px;stroke:#fff;stroke-width:3;fill:none;opacity:0;transition:.18s}
+  .check.done .box{background:var(--green);border-color:var(--green)}
+  .check.done .box svg{opacity:1}
+  .check.done .txt{color:var(--faint);text-decoration:line-through}
+  .check .txt{font-size:15px;color:var(--ink)}
+  .check .txt b{color:var(--purple);font-weight:600}
+  .check .when{font-family:'JetBrains Mono';font-size:11px;color:var(--amber);border:1px solid rgba(251,191,36,.25);
+    background:rgba(251,191,36,.06);padding:2px 7px;border-radius:6px;margin-left:auto;white-space:nowrap;flex:0 0 auto}
+
+  /* метаданные */
+  .meta{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;font-size:13.5px;color:var(--muted)}
+  .meta div{padding:5px 0;border-bottom:1px solid var(--line)}
+  .meta div:last-child{border-bottom:none}
+  .meta b{color:var(--faint);font-family:'JetBrains Mono';font-size:12px;font-weight:600;margin-right:8px}
+
+  footer{padding:46px var(--gutter) 70px;color:var(--faint);font-size:13px;text-align:center;border-top:1px solid var(--line);margin-top:24px}
+  footer a{color:var(--purple)}
+
+  #lb{position:fixed;inset:0;z-index:200;background:rgba(4,4,9,.93);backdrop-filter:blur(8px);
+    display:none;align-items:center;justify-content:center;flex-direction:column;padding:24px;cursor:zoom-out}
+  #lb.on{display:flex;animation:fade .2s ease}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  #lb img{max-width:94vw;max-height:80vh;border-radius:12px;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.7)}
+  #lb .lbcap{color:var(--muted);font-size:14px;margin-top:16px;max-width:760px;text-align:center}
+  #lb .lbbtn{margin-top:14px;display:inline-flex;gap:8px;align-items:center;background:var(--purple-deep);color:#fff;padding:10px 18px;border-radius:10px;font-weight:600;font-size:14px;cursor:pointer}
+  #lb .lbbtn svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2}
+  #lb .close{position:absolute;top:20px;right:24px;color:#fff;font-size:30px;opacity:.7;cursor:pointer}
+
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .6s cubic-bezier(.2,.7,.3,1),transform .6s cubic-bezier(.2,.7,.3,1)}
+  .rv.in{opacity:1;transform:none}
+
+  @media(max-width:640px){
+    :root{--gutter:18px;--radius:14px}
+    body{font-size:15.5px;line-height:1.6}
+    .nav-in{padding:10px var(--gutter);gap:12px}
+    .brand{font-size:13.5px}
+    .hero{padding-top:24px;padding-bottom:24px}
+    .hero h1{font-size:clamp(25px,7.2vw,32px);margin:14px 0 10px;line-height:1.18}
+    .hero .sub{font-size:15.5px;line-height:1.55}
+    .eyebrow{font-size:11px;padding:5px 11px;letter-spacing:.12em}
+    section{padding-top:52px;padding-bottom:36px;scroll-margin-top:56px}
+    .shead{margin-bottom:20px}
+    .shead h2{font-size:24px}
+    .lead{font-size:15px}
+    .talk{padding:20px 18px}
+    .trick{padding:20px 18px}
+    .quote{padding:16px 18px}
+    .check{padding:12px 14px;gap:11px}
+    .check .txt{font-size:13.5px}
+    footer{padding:36px var(--gutter) 60px;font-size:12.5px}
+  }
+</style><style>.shot{max-width:100%;margin:auto}.shot img{width:auto;max-width:100%;height:auto;display:block;margin-inline:auto}.shot button{position:absolute;bottom:8px;right:8px;min-width:44px;min-height:44px;background:#171727;color:white;border:1px solid #a78bfa;border-radius:8px}.watch-item p{font-size:16px}#lbimg{width:auto;height:auto}.key li,.try li,.about p{font-size:16px}</style>
+<style data-visual-html-responsive="v1">
+:root {
+  --page-gutter: 22px;
+  --gutter: 22px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100%;
+}
+
+body {
+  overflow-x: visible !important;
+}
+
+.wrap,
+.nav-in,
+footer,
+[data-mobile-container] {
+  width: 100% !important;
+  margin-inline: auto;
+  padding-inline: var(--page-gutter) !important;
+}
+
+section {
+  scroll-margin-top: 70px;
+}
+
+.grid > *,
+.hero-grid > *,
+.split > *,
+.quotes > *,
+.checks > *,
+.facts > *,
+.tools > *,
+.debate > *,
+.nav-links,
+.navlinks,
+.shead > *,
+.sec-head > *,
+.tl-item,
+.timeline > *,
+[data-mobile-stack] > * {
+  min-width: 0;
+}
+
+img,
+video,
+audio,
+canvas,
+iframe,
+figure {
+  max-width: 100% !important;
+}
+
+img,
+video,
+canvas {
+  height: auto;
+}
+
+video,
+audio,
+iframe {
+  display: block;
+  width: 100% !important;
+}
+
+iframe {
+  height: auto !important;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+svg {
+  max-width: 100%;
+}
+
+pre,
+table,
+.tbl,
+[data-mobile-scroll] {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+table,
+.tbl {
+  display: block;
+}
+
+[data-mobile-scroll] > svg {
+  width: 640px !important;
+  min-width: 640px !important;
+  max-width: none !important;
+  height: auto;
+}
+
+.k,
+.srcline,
+.srcline code,
+.eyebrow,
+.chip,
+.pill,
+.tag,
+.au,
+.src,
+.tc,
+.t,
+.timecode,
+.trick-head h3,
+.item-head h3,
+.check .txt,
+.talk p,
+.trick p,
+.trick li,
+.item p,
+.item li,
+.card p,
+.card li,
+.quote .q,
+.quote .ru,
+blockquote .ru,
+.tl-item p,
+.timeline p,
+.deb li,
+.callout,
+.fact .d,
+.tool .desc,
+[data-mobile-copy],
+[data-mobile-copy] p,
+[data-mobile-copy] li,
+[data-mobile-copy] dd,
+[data-mobile-wrap],
+code:not(pre code),
+h1,
+h2,
+h3,
+h4 {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.eyebrow,
+.chip,
+.pill,
+.tag,
+.au,
+.src,
+.links .src {
+  max-width: 100%;
+}
+
+.src,
+.links .src {
+  white-space: normal !important;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --page-gutter: 18px;
+    --gutter: 18px;
+    --radius: 14px;
+  }
+
+  .nav-in,
+  nav .wrap {
+    min-height: 60px;
+    height: auto !important;
+    gap: 8px !important;
+    padding-block: 8px !important;
+  }
+
+  .brand,
+  .navbrand {
+    display: none !important;
+  }
+
+  .nav-links,
+  .navlinks {
+    width: 100%;
+    margin-left: 0 !important;
+    padding-bottom: 2px;
+    justify-content: space-between;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .nav-links::-webkit-scrollbar,
+  .navlinks::-webkit-scrollbar {
+    display: block;
+    height: 2px;
+  }
+
+  nav a,
+  a.src,
+  a.tc,
+  a.t,
+  a.timecode,
+  a.btn,
+  button,
+  [role="button"],
+  .lbbtn,
+  #lb .close,
+  .lightbox .close,
+  [data-seek] {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  nav a,
+  a.src,
+  a.tc,
+  a.t,
+  a.timecode,
+  a.btn,
+  button,
+  [role="button"],
+  .lbbtn,
+  #lb .close,
+  .lightbox .close,
+  a[data-seek],
+  button[data-seek],
+  span[data-seek] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-links a,
+  .navlinks a {
+    flex: 0 0 auto;
+    padding: 9px 8px !important;
+  }
+
+  section {
+    padding-block: 52px 36px !important;
+    scroll-margin-top: 56px !important;
+  }
+
+  header.hero,
+  .hero {
+    padding-block: 24px 24px !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(30px, 8vw, 36px) !important;
+    line-height: 1.1;
+    margin-top: 18px;
+  }
+
+  .g2,
+  .g3,
+  .g4,
+  .grid:not(.g2):not(.g3):not(.g4),
+  .hero-grid,
+  .split,
+  .quotes,
+  .checks,
+  .facts,
+  .tools,
+  .debate,
+  [data-mobile-stack="grid"] {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  [data-mobile-stack="flex"] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .canvas:not([data-mobile-diagram="reflow"]),
+  figure:not([data-mobile-diagram="reflow"]):has(> svg[viewBox]) {
+    max-width: 100%;
+    overflow-x: auto !important;
+    overscroll-behavior-inline: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .canvas:not([data-mobile-diagram="reflow"]) > svg[viewBox]:not([data-mobile-diagram="reflow"]),
+  figure:not([data-mobile-diagram="reflow"]) > svg[viewBox]:not([data-mobile-diagram="reflow"]) {
+    width: 640px !important;
+    min-width: 640px !important;
+    max-width: none !important;
+    height: auto;
+  }
+
+  .talk,
+  .trick,
+  .item,
+  .card,
+  .quote,
+  .fact,
+  .check:not(ul),
+  .check > li,
+  .deb,
+  .thesis,
+  .thesis-card,
+  blockquote,
+  .callout,
+  [data-mobile-card] {
+    padding: 20px 18px !important;
+  }
+
+  blockquote {
+    margin-inline: 0 !important;
+  }
+
+  .trick-head,
+  .item-head,
+  .shead,
+  .sec-head,
+  .code .bar,
+  .tl-head,
+  blockquote footer {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .shead,
+  .sec-head {
+    align-items: flex-start;
+    margin-bottom: 20px !important;
+  }
+
+  .shead h2,
+  .sec-head h2 {
+    font-size: 24px !important;
+  }
+
+  .shead .src,
+  .sec-head .src {
+    margin-left: 0 !important;
+  }
+
+  .trick-head .tnum,
+  .item-head .tnum {
+    min-width: 38px;
+    height: 38px;
+    font-size: 19px;
+  }
+
+  .trick-head h3,
+  .item-head h3 {
+    padding-top: 4px;
+    font-size: 20px;
+  }
+
+  .who {
+    padding-left: 0;
+  }
+
+  .about,
+  .key,
+  .try,
+  .risk {
+    padding: 15px 16px;
+  }
+
+  .hero .sub,
+  .hero .lede,
+  .hero .lead,
+  .lead,
+  .lede,
+  .sec-sub,
+  .talk p,
+  .trick p,
+  .trick li,
+  .item p,
+  .item li,
+  .card p,
+  .card li,
+  .quote .q,
+  .quote .ru,
+  blockquote .ru,
+  .tl-item p,
+  .timeline p,
+  .check .txt,
+  .check > li,
+  .deb li,
+  .callout,
+  .fact .d,
+  .tool .desc,
+  .watch-item p,
+  [data-mobile-copy],
+  [data-mobile-copy] p,
+  [data-mobile-copy] li,
+  [data-mobile-copy] dd {
+    font-size: 16px !important;
+  }
+
+  .fact {
+    align-items: flex-start;
+  }
+
+  .fact .v {
+    min-width: 0 !important;
+  }
+
+  .tl {
+    padding-left: 24px;
+  }
+
+  .tl-thumbs .shot {
+    width: 100% !important;
+  }
+
+  .links {
+    align-items: stretch;
+  }
+
+  .links .src {
+    min-height: 44px;
+    padding: 9px 11px;
+  }
+
+  .check:not(ul) {
+    flex-wrap: wrap;
+  }
+
+  .check .txt {
+    flex: 1 1 220px;
+  }
+
+  #lb,
+  .lightbox {
+    padding: 16px !important;
+  }
+
+  footer {
+    padding-block: 36px 60px !important;
+  }
+}
+</style>
+</head><body><div id="progress"></div><nav><div class="nav-in"><div class="brand"><span class="dot"></span>HackerNoon · AI</div><div class="nav-links"><a href="#tricks">Статьи</a><a href="#watch">На радаре</a><a href="#plan">План</a></div></div></nav><header class="wrap hero"><span class="eyebrow">01–08 ноября 2026 · 7 дней</span><h1>Агенты под контролем</h1><p class="sub">Восемь практик из HackerNoon: права выполнения, контекст, память и проверяемые границы tools.</p><div class="chips"><span class="chip">8 основных статей</span><span class="chip">3 на радаре</span><span class="chip">257 материалов недели</span></div><div class="talk rv" id="talk"><div class="lab">О чём пишут</div><p>Агенту мало выдать доступ к инструментам: нужно знать, какое действие он вправе выполнить и что останется после сбоя. На этой неделе авторы разбирают rootless Docker, approval с привязкой к payload и журнал необратимых вызовов. Другая общая задача — <span class="accent">давать контекст вовремя и сохранять его между сессиями</span>. Для каждой практики ниже есть небольшой эксперимент и наблюдаемый критерий.</p></div></header><section class="wrap" id="tricks"><div class="shead"><h2>Главные статьи недели</h2></div><div class="tricks"><article class="trick rv" data-card-id="taming-autonomous-ai-agents-with-rootless-docker"><div class="trick-head"><span class="tnum">01</span><h3>Rootless Docker ограничивает ущерб от команд агента</h3></div><div class="who"><a class="au" href="https://hackernoon.com/taming-autonomous-ai-agents-with-rootless-docker" target="_blank" rel="noopener">Siva Sai Krishna Suryadevara</a><span class="src-tag">HackerNoon</span><span class="cat">rootless-docker</span><span class="cat">ai-coding-agents</span></div><div class="about"><div class="lab">О чём</div><p>Агенту достаточно доступа к rootful Docker, чтобы получить опасные полномочия на хосте. Автор переносит daemon под отдельного непривилегированного пользователя, закрепляет сокет и проверяет ресурсные ограничения.</p></div><div class="key"><div class="lab">Главное</div><ul><li>Rootless Docker отделяет контейнерный root от root хоста; пользователь daemon всё равно должен иметь минимум прав.</li><li>Лимиты cgroups работают при cgroups v2 и systemd. Если docker info показывает driver none, ограничения могут игнорироваться.</li><li>Rootless не заменяет политику разрешённых команд и сетевого доступа. Проверка UID клиента в приведённом MCP-проекте ещё не реализована.</li></ul></div><div class="try"><div class="try-lab">Попробовать за вечер</div><ul><li>В отдельном Linux sandbox проверьте docker info и привязку DOCKER_HOST к пользовательскому сокету.</li><li>Запустите проверку автора: docker run --rm --cpus=0.5 busybox cat /sys/fs/cgroup/cpu.max. Затем проверьте memory и pids limit.</li><li class="measure">Метрика: cpu.max соответствует установленной квоте; агент не может обратиться к системному Docker socket.</li></ul></div><div class="links"><a class="src" href="https://hackernoon.com/taming-autonomous-ai-agents-with-rootless-docker" target="_blank" rel="noopener">Читать на HackerNoon</a><a class="src" href="https://github.com/SivaSaiKrishnaSuryadevara/docker-mcp-guardian" target="_blank" rel="noopener">Репозиторий</a><a class="src" href="https://github.com/SivaSaiKrishnaSuryadevara/docker-mcp-guardian/issues/4" target="_blank" rel="noopener">Репозиторий</a></div></article><article class="trick rv" data-card-id="the-impact-framework-six-rules-for-better-ai-generat-d04ecbc"><div class="trick-head"><span class="tnum">02</span><h3>Промпт дизайна задаёт размеры, роли и запреты</h3></div><div class="who"><a class="au" href="https://hackernoon.com/the-impact-framework-six-rules-for-better-ai-generated-designs" target="_blank" rel="noopener">James Shehan</a><span class="src-tag">HackerNoon</span><span class="cat">ai</span><span class="cat">generative-ai</span></div><div class="about"><div class="lab">О чём</div><p>Слова «современный» и «чистый» оставляют модели почти все решения о макете. IMPACT заменяет их измеримыми ограничениями и списком того, что в результат попадать не должно.</p></div><div class="key"><div class="lab">Главное</div><ul><li>Автор задаёт иерархию заголовка и подзаголовка 3:1, роли максимум трёх цветов и конкретные поля.</li><li>Python и JavaScript builders собирают ограничения в повторяемый промпт. Исправление меняет один параметр, чтобы причину было видно.</li><li>Модель и настройки сравнения не названы. Точное соблюдение hex-кодов и шрифтов нужно проверять отдельно.</li></ul></div><div class="try"><div class="try-lab">Попробовать за вечер</div><ul><li>Возьмите один макет и составьте для него обычный промпт и вариант с блоками IMPACT из статьи.</li><li>На одной модели с одинаковыми настройками сравните иерархию, поля, число цветов и точность текста.</li><li class="measure">Метрика: число выполненных ограничений по одному checklist; удачный пример не считайте общей гарантией качества.</li></ul></div><figure><div class="shot" data-full="assets/impact-body-2.jpg" data-cap="Сравнение автора: обычный промпт слева, ограничения IMPACT справа. Изменились иерархия и плотность макета, а также содержание примера." data-href="https://hackernoon.com/the-impact-framework-six-rules-for-better-ai-generated-designs" data-width="698" style="max-width:698px"><img src="assets/impact-body-2.jpg" alt="Сравнение автора: обычный промпт слева, ограничения IMPACT справа. Изменились иерархия и плотность макета, а также содержание примера."><button aria-label="Увеличить изображение">↗</button></div><figcaption>Сравнение автора: обычный промпт слева, ограничения IMPACT справа. Изменились иерархия и плотность макета, а также содержание примера.</figcaption></figure><div class="links"><a class="src" href="https://hackernoon.com/the-impact-framework-six-rules-for-better-ai-generated-designs" target="_blank" rel="noopener">Читать на HackerNoon</a></div></article><article class="trick rv" data-card-id="human-approval-is-not-a-security-boundary-unless-it--e7ae6e9"><div class="trick-head"><span class="tnum">03</span><h3>Approval должен разрешать конкретное действие</h3></div><div class="who"><a class="au" href="https://hackernoon.com/human-approval-is-not-a-security-boundary-unless-it-is-bound-to-the-exact-action-being-approved-enf" target="_blank" rel="noopener">Atul Kumar</a><span class="src-tag">HackerNoon</span><span class="cat">artificial-intelligence</span><span class="cat">ai-agents</span></div><div class="about"><div class="lab">О чём</div><p>Пользователь одобрил действие, но агент затем изменил сумму или получателя. Approval — одобрение пользователя. Предлагаемый протокол связывает его с каноническим payload, то есть точными параметрами действия, и проверяет эту связь непосредственно перед внешним вызовом.</p></div><div class="key"><div class="lab">Главное</div><ul><li>Hash payload защищает от изменения действия, но сам по себе не защищает от двух workers, использующих одно approval.</li><li>Потребление approval требует одной условной операции в постоянном хранилище. Для повторов внешнего вызова нужен стабильный idempotency key.</li><li>Пример учебный: in-memory store не выдерживает конкуренцию и перезапуск. Atomic claim и reconciliation нужно реализовать в своём приложении.</li></ul></div><div class="try"><div class="try-lab">Попробовать за вечер</div><ul><li>Для одного sensitive tool перечислите security-relevant поля и добавьте тест изменения payload после approval.</li><li>Проверьте просроченное approval, двух workers и потерю ответа после успешного вызова provider.</li><li class="measure">Метрика: изменённое действие отклоняется; два workers не получают право на одну операцию; неизвестный исход виден оператору.</li></ul></div><div class="links"><a class="src" href="https://hackernoon.com/human-approval-is-not-a-security-boundary-unless-it-is-bound-to-the-exact-action-being-approved-enf" target="_blank" rel="noopener">Читать на HackerNoon</a></div></article><article class="trick rv" data-card-id="how-to-use-progressive-disclosure-to-improve-coding--7d2adac"><div class="trick-head"><span class="tnum">04</span><h3>Подробные инструкции загружаются по задаче</h3></div><div class="who"><a class="au" href="https://hackernoon.com/how-to-use-progressive-disclosure-to-improve-coding-agent-performance" target="_blank" rel="noopener">Kaan Bobaç</a><span class="src-tag">HackerNoon</span><span class="cat">harness-engineering</span><span class="cat">agent-skills</span></div><div class="about"><div class="lab">О чём</div><p>Большой AGENTS.md расходует контекст даже на простое исправление опечатки. Автор оставляет в корне карту проекта и условия чтения, а процедуры выносит в отдельные guides и skills.</p></div><div class="key"><div class="lab">Главное</div><ul><li>Указатель связывает действие с файлом: перед изменением UI прочитать docs/agents/ui.md.</li><li>Проверять нужно фактическое чтение: typo task не должен загружать все guides, задача через несколько слоёв должна находить нужные.</li><li>Это метод проверки discovery, а не измеренный выигрыш в токенах. Автоматические imports могут заранее загрузить весь контекст.</li></ul></div><div class="try"><div class="try-lab">Попробовать за вечер</div><ul><li>В своём проекте вынесите одну длинную процедуру в guide и добавьте условный указатель в корневые инструкции.</li><li>В чистых сессиях выполните релевантную и нерелевантную задачу; сохраните список открытых файлов.</li><li class="measure">Метрика: нужный guide найден в релевантной задаче и не прочитан без причины в нерелевантной.</li></ul></div><div class="links"><a class="src" href="https://hackernoon.com/how-to-use-progressive-disclosure-to-improve-coding-agent-performance" target="_blank" rel="noopener">Читать на HackerNoon</a><a class="src" href="https://github.com/agentsmd/agents.md#readme" target="_blank" rel="noopener">Репозиторий</a><a class="src" href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions" target="_blank" rel="noopener">Репозиторий</a></div></article><article class="trick rv" data-card-id="how-i-gave-claude-code-long-term-memory-with-markdow-96bec5e"><div class="trick-head"><span class="tnum">05</span><h3>Файловая память возвращает агенту незавершённую работу</h3></div><div class="who"><a class="au" href="https://hackernoon.com/how-i-gave-claude-code-long-term-memory-with-markdown-and-python-hooks" target="_blank" rel="noopener">lachy</a><span class="src-tag">HackerNoon</span><span class="cat">claude-code</span><span class="cat">ai</span></div><div class="about"><div class="lab">О чём</div><p>После новой сессии Claude Code теряет контекст о текущей ветке и следующем шаге. Автор хранит знания в Markdown, а lifecycle hooks записывают и возвращают небольшой handoff — заметку для следующей сессии.</p></div><div class="key"><div class="lab">Главное</div><ul><li>MEMORY.md служит индексом: в контекст попадают указатели, подробности читаются по необходимости.</li><li>Stop hook сохраняет handoff, SessionStart возвращает его, если возраст меньше 48 часов.</li><li>В статье даны фрагменты, а не полный набор scripts. Пути, обработку Git и формат handoff нужно адаптировать к своей среде.</li></ul></div><div class="try"><div class="try-lab">Попробовать за вечер</div><ul><li>В своём workspace заведите индекс знаний и простую пару Stop/SessionStart hooks для handoff.</li><li>Перезапустите сессию со свежим handoff и отдельно с файлом старше 48 часов; проверьте git --no-optional-locks status в hook.</li><li class="measure">Метрика: свежая сессия правильно называет ветку и следующий шаг; устаревшая подсказка не загружается; задержка hook измерена.</li></ul></div><div class="links"><a class="src" href="https://hackernoon.com/how-i-gave-claude-code-long-term-memory-with-markdown-and-python-hooks" target="_blank" rel="noopener">Читать на HackerNoon</a></div></article><article class="trick rv" data-card-id="the-mcp-server-chose-the-token-endpoint-two-official-fdb7aed"><div class="trick-head"><span class="tnum">06</span><h3>OAuth-секрет MCP-клиента привязывается к issuer</h3></div><div class="who"><a class="au" href="https://hackernoon.com/the-mcp-server-chose-the-token-endpoint-two-official-sdks-trusted-it" target="_blank" rel="noopener">aviral srivastava</a><span class="src-tag">HackerNoon</span><span class="cat">cybersecurity</span><span class="cat">ai-security</span></div><div class="about"><div class="lab">О чём</div><p>При подключении удалённого MCP-сервера OAuth discovery находит адреса авторизации. Issuer — сервер, которому принадлежат credentials, учётные данные клиента. В разобранном автором сбое клиент доверял выбранному endpoint, хотя credentials принадлежали другому issuer.</p></div><div class="key"><div class="lab">Главное</div><ul><li>Аудит касается OAuth-enabled HTTP clients; stdio-клиенты вне описанного сценария.</li><li>Проверить нужно deployed dependency, issuer в Python или expectedIssuer в TypeScript и сохранение этого поля в credential store.</li><li>Обновления SDK недостаточно без корректной конфигурации и миграции старого state. Lower-level helpers и отключённая issuer validation требуют отдельной проверки.</li></ul></div><div class="try"><div class="try-lab">Попробовать за вечер</div><ul><li>Найдите OAuth provider и lockfile реально развёрнутого MCP-клиента; сопоставьте их с advisories по ссылкам автора.</li><li>На тестовом клиенте проверьте несовпадающий discovered issuer и повторную загрузку credentials из своего storage.</li><li class="measure">Метрика: несовпадающий issuer вызывает отказ до отправки секрета; issuer сохраняется после перезапуска.</li></ul></div><div class="links"><a class="src" href="https://hackernoon.com/the-mcp-server-chose-the-token-endpoint-two-official-sdks-trusted-it" target="_blank" rel="noopener">Читать на HackerNoon</a><a class="src" href="https://github.com/modelcontextprotocol/python-sdk/blob/v1.29.1/src/mcp/client/auth/oauth2.py" target="_blank" rel="noopener">Репозиторий</a><a class="src" href="https://github.com/modelcontextprotocol/typescript-sdk/blob/1.30.1/src/client/auth.ts" target="_blank" rel="noopener">Репозиторий</a></div></article><article class="trick rv" data-card-id="agent-graph-engineering-part-5-how-to-build-safer-ai-6bfda27"><div class="trick-head"><span class="tnum">07</span><h3>ToolError и ledger делают сбои агента явными</h3></div><div class="who"><a class="au" href="https://hackernoon.com/agent-graph-engineering-part-5-how-to-build-safer-ai-agents-with-structured-errors-and-guardrails" target="_blank" rel="noopener">Huy Nguyen</a><span class="src-tag">HackerNoon</span><span class="cat">ai-agent</span><span class="cat">architecture</span></div><div class="about"><div class="lab">О чём</div><p>Свободный текст ошибки заставляет модель угадывать, что произошло и можно ли повторить действие. Автор вводит машинный error_type, а необратимые вызовы защищает ledger — журналом claim и результата.</p></div><div class="key"><div class="lab">Главное</div><ul><li>Wrapper превращает ToolError в структурный результат, по которому граф выбирает дальнейший путь.</li><li>Перед необратимым вызовом записывается claim, после него — результат. Повтор одного run_id не должен создавать новое действие.</li><li>Падение между claim и записью результата оставляет неизвестный исход: нужен разбор человеком. Guardrails примера не покрывают содержимое tool responses, PII и sandboxing.</li></ul></div><div class="try"><div class="try-lab">Попробовать за вечер</div><ul><li>В тестовом tool замените текстовую ошибку на error_type и проверьте ветку обработки в графе.</li><li>Повторите один run_id и внесите сбой между claim и record; используйте проект по ссылке автора как основу.</li><li class="measure">Метрика: повтор не запускает второй внешний вызов; неизвестный исход помечен и не превращается в автоматический retry.</li></ul></div><figure><div class="shot" data-full="assets/graph-guardrails.png" data-cap="Схема автора: ограничить вход, вызвать модель, проверить выход. Внутри потока tools возвращают структурные ошибки; неизвестный исход операции всё равно требует разбора." data-href="https://hackernoon.com/agent-graph-engineering-part-5-how-to-build-safer-ai-agents-with-structured-errors-and-guardrails" data-width="1000" style="max-width:1000px"><img src="assets/graph-guardrails.png" alt="Схема автора: ограничить вход, вызвать модель, проверить выход. Внутри потока tools возвращают структурные ошибки; неизвестный исход операции всё равно требует разбора."><button aria-label="Увеличить изображение">↗</button></div><figcaption>Схема автора: ограничить вход, вызвать модель, проверить выход. Внутри потока tools возвращают структурные ошибки; неизвестный исход операции всё равно требует разбора.</figcaption></figure><div class="links"><a class="src" href="https://hackernoon.com/agent-graph-engineering-part-5-how-to-build-safer-ai-agents-with-structured-errors-and-guardrails" target="_blank" rel="noopener">Читать на HackerNoon</a><a class="src" href="https://github.com/vstorm-co/pydantic-ai-shields" target="_blank" rel="noopener">Репозиторий</a><a class="src" href="https://github.com/jagreehal/pydantic-ai-guardrails" target="_blank" rel="noopener">Репозиторий</a></div></article><article class="trick rv" data-card-id="build-durable-chat-memory-for-rag-using-scylladb-and-692a6ff"><div class="trick-head"><span class="tnum">08</span><h3>История RAG-диалога переживает перезапуск</h3></div><div class="who"><a class="au" href="https://hackernoon.com/build-durable-chat-memory-for-rag-using-scylladb-and-langchain" target="_blank" rel="noopener">ScyllaDB</a><span class="src-tag">HackerNoon</span><span class="cat">scylladb-vector-search</span><span class="cat">scalable-rag-architecture</span></div><div class="about"><div class="lab">О чём</div><p>История в памяти процесса пропадает при restart и расходится между replicas. Рецепт сохраняет сообщения в ScyllaDB через Cassandra connector LangChain, связывая их с session_id.</p></div><div class="key"><div class="lab">Главное</div><ul><li>CassandraChatMessageHistory читает и пишет сообщения; RunnableWithMessageHistory подключает историю к вызову модели.</li><li>Тот же session_id возвращает прежний диалог другой replica. Новый идентификатор должен начать отдельную историю.</li><li>Нужны ScyllaDB 2026.2, credentials и окружение demo. Обещание предсказуемого P99 не подтверждено замерами; код лучше брать из указанного репозитория.</li></ul></div><div class="try"><div class="try-lab">Попробовать за вечер</div><ul><li>Откройте vector-search-examples по ссылке автора и настройте тестовые ScyllaDB и Groq credentials.</li><li>Выполните диалог, перезапустите процесс с тем же SESSION_ID, затем повторите с новым.</li><li class="measure">Метрика: прежний session_id возвращает прошлые сообщения, новый не раскрывает чужую историю; ответ использует нужный контекст.</li></ul></div><figure><div class="shot" data-full="assets/scylla-diagram-original.png" data-cap="История сообщений читается перед ChatPromptTemplate и пополняется после ответа. ScyllaDB также возвращает контекст через ANN retrieval; история привязана к session_id." data-href="https://hackernoon.com/build-durable-chat-memory-for-rag-using-scylladb-and-langchain" data-width="567" style="max-width:567px"><img src="assets/scylla-diagram-original.png" alt="История сообщений читается перед ChatPromptTemplate и пополняется после ответа. ScyllaDB также возвращает контекст через ANN retrieval; история привязана к session_id."><button aria-label="Увеличить изображение">↗</button></div><figcaption>История сообщений читается перед ChatPromptTemplate и пополняется после ответа. ScyllaDB также возвращает контекст через ANN retrieval; история привязана к session_id.</figcaption></figure><div class="links"><a class="src" href="https://hackernoon.com/build-durable-chat-memory-for-rag-using-scylladb-and-langchain" target="_blank" rel="noopener">Читать на HackerNoon</a><a class="src" href="https://github.com/scylladb/vector-search-examples" target="_blank" rel="noopener">Репозиторий</a><a class="src" href="https://pypi.org/project/langchain-cassandra/" target="_blank" rel="noopener">Материал автора</a></div></article></div></section><section class="wrap" id="watch"><div class="shead"><h2>На что обратить внимание</h2></div><div class="watch"><div class="watch-item"><h4>Сначала сократить ответ tools</h4><div class="who">Kaan Bobaç</div><p>Сравнение gh показывает: экономия текста может происходить от выбора полей, а не от замены MCP на CLI. В работе не измеряли inference, поэтому токены возвращённого текста нельзя считать стоимостью всей задачи.</p><a class="src" href="https://hackernoon.com/do-ai-agents-really-need-mcp-servers-heres-what-the-numbers-say" target="_blank" rel="noopener">Источник</a></div><div class="watch-item"><h4>Отрицание проверяется отдельно</h4><div class="who">JasonL</div><p>Соберите вопрос, перефразировку и противоположный смысл в одну тройку для проверки retrieval или semantic cache. Маленький английский набор автора не доказывает результат на вашем корпусе.</p><a class="src" href="https://hackernoon.com/why-semantic-similarity-can-give-ai-the-exact-opposite-answer" target="_blank" rel="noopener">Источник</a></div><div class="watch-item"><h4>Persona может увеличить расход reasoning</h4><div class="who">Cameron M. Palmer</div><p>Эксперимент сравнивает expert personas и нейтральные инструкции на single-call multiple-choice вопросах. Переносить результат на coding agents без своего парного eval нельзя.</p><a class="src" href="https://hackernoon.com/the-prompt-engineering-trick-that-could-be-making-your-ai-slower" target="_blank" rel="noopener">Источник</a></div></div></section><section class="wrap" id="plan"><div class="shead"><h2>Мой план на неделю</h2></div><div class="checks"><div class="check"><span class="box">✓</span><span class="txt">Проверить негативные сценарии approval на одном tool.</span><span class="when">Вторник</span></div><div class="check"><span class="box">✓</span><span class="txt">Выделить один guide и проверить discovery в чистой сессии.</span><span class="when">Четверг</span></div><div class="check"><span class="box">✓</span><span class="txt">Повторить restart тест постоянной памяти.</span><span class="when">Выходные</span></div></div></section><section class="wrap"><div class="meta"><div>За неделю собраны все 257 статей поискового индекса HackerNoon; 60 прошли редакционный просмотр, 20 прочитаны полностью. Восемь практик прошли отдельное опровержение; три материала оставлены на радаре.</div><div>Окно: 01–08.11.2026. Покрыто полностью, отказов сбора нет. Счётчик прочтений доступен для 235 из 257 материалов; он не использовался для ранжирования.</div><div>Собрано 2026-11-08T13:35:32.284906Z</div></div></section><footer>HackerNoon · практические AI-статьи недели · 08.11.2026</footer><div id="lb"><button class="close" aria-label="Закрыть">×</button><img id="lbimg" src="" alt="Полное исходное изображение"><div class="lbcap" id="lbcap"></div><a class="lbbtn" id="lbbtn" target="_blank" rel="noopener">Открыть статью</a></div><script>(function(){
+  var prog=document.getElementById('progress');
+  function onScroll(){var h=document.documentElement;prog.style.width=((h.scrollTop)/(h.scrollHeight-h.clientHeight)*100)+'%';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+
+  var navlinks=[].slice.call(document.querySelectorAll('.nav-links a'));
+  var secs=navlinks.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  var spy=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var id='#'+e.target.id;navlinks.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')===id);});}});},{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(function(s){if(s)spy.observe(s);});
+
+  // lightbox: data-full = картинка, data-href = статья
+  var lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg'),lbcap=document.getElementById('lbcap'),lbbtn=document.getElementById('lbbtn');
+  document.querySelectorAll('.shot[data-full]').forEach(function(s){
+    s.addEventListener('click',function(){
+      lbimg.src=s.getAttribute('data-full');
+      lbcap.textContent=s.getAttribute('data-cap')||'';
+      var href=s.getAttribute('data-href');
+      if(href){lbbtn.href=href;lbbtn.style.display='inline-flex';}else{lbbtn.style.display='none';}
+      lb.classList.add('on');
+    });
+  });
+  function close(){lb.classList.remove('on');lbimg.src='';}
+  lb.addEventListener('click',function(e){if(e.target===lb||e.target.classList.contains('close'))close();});
+  lbbtn.addEventListener('click',function(e){e.stopPropagation();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+
+  document.querySelectorAll('.check').forEach(function(c){c.addEventListener('click',function(){c.classList.toggle('done');});});
+})();
+</script><script>document.querySelectorAll(".shot").forEach(s=>s.addEventListener("click",()=>{document.getElementById("lbimg").style.width=s.dataset.width+"px"}));</script></body></html>
